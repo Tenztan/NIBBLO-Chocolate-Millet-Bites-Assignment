@@ -60,4 +60,4 @@ The bag count is local to the page session. Checkout and payment processing are 
 | `public/` | Product textures, lifestyle photos, footer artwork, and the licensed Barlow Condensed font |
 | `docs/` | Captioned screen recording |
 
-For a Vercel deployment, import the repository using the **Next.js** preset and the repository root. The project uses the standard `npm run build` command and requires no application secrets.
+Deployment link : https://nibblo-chocolate-millet-bites-assig.vercel.app/ 
