@@ -1,0 +1,109 @@
+.moments {
+  position: relative;
+  isolation: isolate;
+  background: #f6eddb;
+  color: #29190f;
+}
+.head { padding: 4rem var(--pad) 1.5rem; }
+.head h2, .time, .index button {
+  margin: 0;
+  font: 500 clamp(11px, .85vw, 15px)/1.3 var(--font-mono), monospace;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+.moment {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--print);
+  display: grid;
+  grid-template-columns: 46% 54%;
+  align-items: center;
+  min-height: min(78svh, 680px);
+}
+.moment[data-moment="gym"] { --paper: #c7dbe0; --print: #162c3a; }
+.moment[data-moment="road"] { --paper: #d5dfb8; --print: #243b27; }
+.moment[data-moment="desk"] { --paper: #f3d398; --print: #512715; }
+.moment[data-moment="movie"] { --paper: #f2c9ba; --print: #531d20; }
+.photo {
+  position: absolute;
+  inset: 0 0 0 46%;
+  clip-path: polygon(13% 0, 100% 0, 100% 100%, 0 100%);
+  overflow: hidden;
+}
+.photo img { object-fit: cover; }
+.copy { position: relative; padding-left: var(--pad); }
+.time { display: flex; align-items: center; gap: .8em; margin-bottom: clamp(12px, 2.3dvh, 26px); }
+.time > span { width: 2.65em; border-top: 2px solid currentColor; }
+.copy h3 {
+  margin: 0;
+  font: 800 min(8.9vw, 16.8dvh)/.9 "Barlow Condensed", Impact, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -.035em;
+}
+.mask { display: block; overflow: clip; padding-bottom: .065em; margin-bottom: -.065em; }
+.mask > span { display: block; }
+.body { max-width: 32ch; margin: clamp(16px, 2.8dvh, 32px) 0 0; font-size: clamp(15px, 1.25vw, 22px); line-height: 1.4; }
+.index { display: none; }
+
+/* A readable sequence is the default. GSAP opts into a shared pinned stage. */
+/* Keep Why on screen underneath the first diagonal wipe. The runway starts
+   exactly where the bite finishes crossing the claims. */
+.sequence[data-pinned] { display: flow-root; }
+.sequence[data-pinned] > :first-child { position: sticky; top: 0; }
+.sequence[data-pinned] .runway { position: relative; margin-top: calc(240vh - 100dvh); }
+@media (max-width: 760px) {
+  .sequence[data-pinned] .runway { margin-top: calc(200vh - 100dvh); }
+}
+.moments[data-reel] { height: 100dvh; overflow: hidden; background: transparent; pointer-events: none; }
+.moments[data-reel] .index { pointer-events: auto; }
+.moments[data-reel] .head {
+  position: absolute;
+  z-index: 2;
+  inset: max(81px, 13dvh) auto auto var(--pad);
+  padding: 0;
+}
+.moments[data-reel] .moment { position: absolute; inset: 0; min-height: 0; }
+.moments[data-reel] .index {
+  position: absolute;
+  z-index: 2;
+  left: var(--pad);
+  bottom: max(28px, 6dvh);
+  display: flex;
+  width: min(36vw, 560px);
+  gap: 6px;
+}
+.index button {
+  flex: 1;
+  min-height: 42px;
+  padding: 11px 0 0;
+  border: 0;
+  border-top: 2px solid currentColor;
+  background: transparent;
+  text-align: left;
+  opacity: .57;
+  font-size: clamp(10px, .8vw, 14px);
+}
+.index button[aria-current="step"], .index button:hover, .index button:focus-visible { opacity: 1; }
+.index button[aria-current="step"] { border-top-width: 5px; padding-top: 8px; }
+
+@media (max-width: 760px) and (orientation: portrait) {
+  .moment { display: flex; flex-direction: column; align-items: stretch; min-height: 0; }
+  .copy { order: -1; padding: 26px var(--pad) 30px; }
+  .copy h3 { font-size: min(15vw, 9dvh); }
+  .time { margin-bottom: 10px; }
+  .body { font-size: 15px; margin-top: 13px; }
+  .photo { position: relative; inset: auto; height: 43svh; clip-path: polygon(0 9%, 100% 0, 100% 100%, 0 100%); }
+  .moments[data-reel] .head { top: max(65px, 9dvh); }
+  .moments[data-reel] .moment { display: block; }
+  .moments[data-reel] .copy { position: absolute; top: 16%; padding: 0 var(--pad); }
+  .moments[data-reel] .photo { position: absolute; top: 48%; bottom: 10%; width: 100%; height: auto; }
+  .moments[data-reel] .index { left: var(--pad); right: var(--pad); width: auto; bottom: max(5px, 1.5dvh); }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+  .moments[data-reel] .head { top: 56px; }
+  .moments[data-reel] .index { bottom: 3px; }
+  .body { margin-top: 10px; font-size: 13px; }
+  .time { margin-bottom: 6px; }
+  .copy h3 { font-size: min(7.6vw, 12dvh); }
+}

@@ -1,0 +1,77 @@
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/fonts/barlow-condensed/BarlowCondensed-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-display: swap;
+}
+
+/* NIBBLÅŒ â€” design tokens and base. Colours come straight off the pack: cream paper, milk and dark chocolate,
+   a caramel accent for the millet puffs. */
+:root {
+  --cream: #f3e6d0;
+  --cream-2: #e9d4b4;
+  --milk: #8a5434;
+  --choc: #4b2616;
+  --choc-deep: #2b140b;
+  --caramel: #c98a4b;
+  --ink: #2b140b;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --pad: clamp(18px, 4vw, 64px);
+  --font-sans: var(--font-display), system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+img { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: inherit; }
+::selection { background: var(--choc); color: var(--cream); }
+
+.mono { font-family: var(--font-mono), ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; }
+
+/* paper grain over everything: one tiny SVG noise tile, no image request */
+.grain {
+  position: fixed; inset: -50%; z-index: 60; pointer-events: none; opacity: .08; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 1s steps(4) infinite;
+}
+@keyframes grain { 0% { transform: translate(0, 0); } 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -1%); } }
+
+/* the one WebGL canvas: fixed over the page, never takes clicks */
+.scene { position: fixed; inset: 0; z-index: 30; pointer-events: none; }
+
+/* masked line reveal used by every heading */
+.line { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+.line > span { display: inline-block; will-change: transform; }
+
+/* scrollbar: thin chocolate pill (Chrome ignores ::-webkit-scrollbar once scrollbar-color is set, so that's Firefox-only) */
+@supports not selector(::-webkit-scrollbar) { html { scrollbar-width: thin; scrollbar-color: var(--milk) var(--cream); } }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { border: 3px solid var(--cream); border-radius: 10px; background: var(--milk); }
+::-webkit-scrollbar-button { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .grain { animation: none; }
+}
+
+[data-pack-poster] { transition:opacity .22s; }
+html[data-pouch-ready] [data-pack-poster] { opacity:0; }
+[data-loader][hidden] { display:none; }
+.grain { inset:0; animation:none; opacity:.043; }
+@media(prefers-reduced-motion:reduce) { [data-pack-poster] {transition:none;} }

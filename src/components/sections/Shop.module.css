@@ -1,0 +1,131 @@
+.finale { position: relative; isolation: isolate; }
+.stage {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  height: 100dvh;
+  background: #f5ecd8;
+  color: #291910;
+}
+.head { position: absolute; inset: max(60px, 8svh) 0 auto; text-align: center; z-index: 2; }
+.title, .details h3, .endTitle, .price b {
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.title { margin: 0; font-size: min(12vw, 16.5svh); line-height: .83; letter-spacing: -.035em; }
+.title [data-shop-line] {
+  --ink: 100%;
+  background: linear-gradient(90deg, #291910 var(--ink), #b89366 var(--ink));
+  color: transparent;
+  background-clip: text;
+}
+.title em { font-style: normal; color: #a34424; }
+.prints { position: absolute; inset: 0; pointer-events: none; }
+.prints > div { position: absolute; aspect-ratio: 1.18; border: clamp(3px, .45vw, 8px) solid #fffaeb; box-shadow: 0 6px 14px #42261225; }
+.prints img { object-fit: cover; }
+.deskPrint { width: clamp(116px, 13vw, 218px); top: 26%; left: 7%; rotate: -10deg; }
+.roadPrint { width: clamp(104px, 11.7vw, 197px); top: 18%; right: 8%; rotate: 9deg; }
+.pack { position: absolute; left: 50%; top: 68%; width: min(23vw, 29svh); transform: translate(-50%, -50%); }
+.pack img { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 13px #65422333); }
+.details, .buy { position: absolute; bottom: max(50px, 12svh); }
+.details { left: 7%; width: 29%; }
+.details h3 { margin: 0; font-size: clamp(37px, 4.5vw, 80px); letter-spacing: -.025em; line-height: .91; }
+.details p, .shipping { margin: 12px 0 0; font-size: clamp(12px, 1.05vw, 17px); }
+.buy { right: 7%; width: min(28vw, 405px); }
+.price { display: flex; gap: 12px; align-items: baseline; margin: 0; }
+.price b { font-size: clamp(44px, 4.6vw, 76px); line-height: 1; letter-spacing: -.02em; }
+.price span { font: 500 13px var(--font-mono), monospace; }
+.row { display: flex; gap: 10px; margin-top: 12px; }
+.qty { display: flex; align-items: center; justify-content: space-between; border: 1px solid #5d4938; }
+.qty button, .add { border: 0; min-height: 47px; }
+.qty button { padding: 0 12px; min-width: 36px; background: transparent; font-size: 21px; }
+.qty button:disabled { opacity: .32; cursor: default; }
+.qty output { min-width: 1.2em; text-align: center; }
+.add { background: #962f20; color: #fff5df; flex: 1; padding: 0 12px; font-weight: 700; }
+.add:hover, .add[data-added] { background: #49251a; }
+.shipping { margin-top: 9px; }
+
+/* The shop moves away above a stationary end card. */
+.footer {
+  position: sticky; bottom: 0; z-index: 0; overflow: hidden;
+  height: 100svh; min-height: 395px; display: grid; place-items: center;
+  color: #fff1d9; background: #674126;
+}
+.backdrop { position: absolute; inset: 0; }
+.backdrop img { object-fit: cover; }
+.backdrop::after { content: ""; position: absolute; inset: 0; background: rgba(63, 31, 17, .56); }
+.sign { position: relative; z-index: 2; text-align: center; }
+.endTitle { margin: 0; font-size: min(17vw, 25svh); letter-spacing: -.046em; line-height: .84; }
+.tape {
+  position: absolute; left: 50%; top: 50%; display: inline-flex; align-items: center; gap: .7em;
+  translate: -50% -50%; rotate: -6deg; padding: .44em 1.05em;
+  isolation: isolate; color: #382319; font: italic 600 clamp(19px, 2.1vw, 35px)/1.15 Georgia, serif;
+  text-decoration: none; white-space: nowrap;
+  filter: drop-shadow(2px 4px 3px #32190655);
+}
+.tape::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; background: #faecd2;
+  clip-path: polygon(1% 0, 99% 1%, 98.8% 17%, 100% 28%, 99% 48%, 100% 69%, 99% 88%, 100% 99%, 1% 100%, 1.4% 84%, 0 70%, 1% 53%, 0 36%, 1.4% 21%);
+}
+.tape:hover, .tape:focus-visible { rotate: -2deg; text-decoration: underline; }
+.biteSticker, .pouchSticker { position: absolute; height: auto; pointer-events: none; z-index: 1; }
+.biteSticker { width: min(26vw, 44svh); top: -7%; left: -6%; rotate: -24deg; }
+.pouchSticker { width: min(22vw, 33svh); right: -4%; bottom: -14%; rotate: 19deg; filter: drop-shadow(2px 0 #fff2df) drop-shadow(-2px 0 #fff2df) drop-shadow(0 -2px #fff2df); }
+.colophon { position: absolute; z-index: 3; bottom: max(18px, env(safe-area-inset-bottom)); left: var(--pad); right: var(--pad); display: flex; align-items: baseline; gap: 26px; }
+.colophon small, .colophon a { font: 500 clamp(11px, .85vw, 14px)/1.3 var(--font-sans); }
+.colophon nav { display: flex; gap: 16px; }
+.colophon a { color: inherit; text-underline-offset: 3px; }
+
+@media (max-width: 900px) and (orientation: portrait) {
+  .head { top: max(65px, 9svh); }
+  .title { font-size: min(20vw, 12svh); }
+  .pack { width: min(39vw, 22svh); top: 48%; }
+  .deskPrint { left: -5%; top: 38%; width: 23vw; }
+  .roadPrint { right: -3%; top: 31%; width: 19vw; }
+  .details, .buy { left: var(--pad); right: var(--pad); width: auto; bottom: auto; }
+  .details { top: 65%; }
+  .details h3 { font-size: clamp(26px, 7.4vw, 43px); }
+  .details h3 br { display: none; }
+  .details p { margin-top: 6px; }
+  .buy { top: 77%; }
+  .price b { font-size: 35px; }
+  .row { margin-top: 6px; }
+  .shipping { font-size: 12px; }
+  .endTitle { font-size: min(19vw, 17svh); }
+  .backdrop img { object-position: 31% center; }
+  .biteSticker { top: 9%; left: -8%; width: 44vw; }
+  .pouchSticker { bottom: -7%; right: -9%; width: 39vw; }
+  .colophon { flex-direction: column; gap: 9px; bottom: max(40px, env(safe-area-inset-bottom)); }
+}
+@media (max-height: 550px) and (orientation: landscape) {
+  .details, .buy { bottom: 7%; }
+  .deskPrint, .roadPrint { width: 10vw; }
+  .colophon { bottom: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .footer { position: relative; } }
+
+@media (min-width: 601px) and (max-width: 900px) and (orientation: portrait) {
+  .title { font-size: min(17vw, 10.5svh); }
+  .pack { top: 51%; width: min(31vw, 18svh); }
+}
+
+@media (max-width: 900px) and (orientation: portrait) and (max-height: 700px) {
+  .head { top: 52px; }
+  .title { font-size: min(18vw, 10.5dvh); }
+  .pack { top: 47%; width: min(36vw, 18dvh); }
+  .details { top: auto; bottom: 132px; }
+  .details p { margin-top: 4px; font-size: 12px; }
+  .buy { top: auto; bottom: max(12px, env(safe-area-inset-bottom)); }
+  .price b { font-size: 29px; }
+  .shipping { margin-top: 5px; }
+}
+@media (max-height: 475px) and (orientation: landscape) {
+  .head { top: 45px; }
+  .title { font-size: min(10vw, 14dvh); }
+  .details h3 { font-size: 30px; }
+  .details p, .shipping { font-size: 10px; }
+  .row { gap: 4px; margin-top: 6px; }
+  .add { padding-inline: 6px; font-size: 13px; }
+  .qty button { min-width: 27px; padding-inline: 5px; }
+}

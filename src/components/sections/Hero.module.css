@@ -1,0 +1,56 @@
+.opening { --travel:0; --edge:clamp(15px,1.55vw,30px); position:relative; font-family:Arial,Helvetica,sans-serif; }
+/* A short scroll interval lets the product panel rest flush with the viewport. */
+.opening::after {content:"";display:block;height:12dvh;}
+.hero { background:#e7e2dc; color:#291e18; position:sticky; top:0; height:100dvh; min-height:460px; overflow:hidden; }
+.title { position:absolute; left:var(--edge); right:var(--edge); top:50%; transform:translateY(-50%); margin:0; text-transform:uppercase; font-size:13.55vw; line-height:.88; letter-spacing:-.068em; font-weight:400; }
+.title :global(.line) > span {transform-origin:left;}
+@media(min-width:761px){.title {transform:translateY(-50%) scaleX(1.115);transform-origin:left center;width:89%;right:auto;}}
+.title b {font-weight:inherit;}.title :global(.line) {padding:0 0 .06em; margin:0 0 -.06em;}
+.papers {position:absolute;inset:-8% -6%;overflow:hidden;perspective:1000px;pointer-events:none;}
+.drift {position:absolute;width:clamp(115px,18vw,320px);aspect-ratio:1.72;animation:drift var(--time) ease-in-out var(--phase) infinite alternate; }
+.paper { height:100%;color:#67635f;background:linear-gradient(114deg,#cbc9c6 0%,#f4f1eb 45%,#dedbd7 63%,#efede7);box-shadow:9px 20px 23px #4b393120; padding:6% 9%; transform:rotateZ(var(--tilt)) rotateX(61deg) rotateY(-15deg);font-family:Arial,sans-serif;filter:blur(.75px);opacity:.83;animation:turn calc(var(--time) * .78) ease-in-out var(--phase) infinite alternate; }
+.paper b {font-size:clamp(14px,2vw,32px);letter-spacing:-.09em;line-height:.95;display:block;}.paper small {font-size:clamp(4px,.55vw,8px);display:block;letter-spacing:.08em;margin-bottom:2%;}
+.paper i {display:block;margin-top:3%;width:39%;height:11%;background:repeating-linear-gradient(90deg,#777 0 1px,transparent 1px 3px,#888 3px 5px,transparent 5px 7px);}
+@keyframes drift {from{transform:translate3d(-14%,-14%,0);}to{transform:translate3d(27%,38%,0);}}
+@keyframes turn {from{transform:rotateZ(var(--tilt)) rotateX(62deg) rotateY(-24deg);}to{transform:rotateZ(calc(var(--tilt) + 35deg)) rotateX(28deg) rotateY(18deg);}}
+.overlay {position:absolute; inset:0; z-index:35; pointer-events:none;}
+.viewport {position:sticky;top:0;height:100dvh;min-height:460px;overflow:hidden;}
+.pack {position:absolute; left:calc(50% + 23% * var(--travel)); top:calc(50% - 35% * var(--travel)); height:calc(78% - 10% * var(--travel)); aspect-ratio:1.92/2.76;transform:translate(-50%,var(--pouch-entry-y, 0px));}
+.pack img {width:100%;height:100%;object-fit:contain;}
+.card {opacity:clamp(.16,max(1 - var(--travel) * 3,var(--travel) * 3 - 2),1);position:absolute;right:var(--edge);top:calc(88% - 79% * var(--travel));display:flex;width:clamp(210px,24.5vw,365px);height:clamp(65px,7vw,100px);padding:5px;gap:9px;border-radius:3px;background:#f7f6f4;color:#211914;text-decoration:none;pointer-events:auto;}
+.thumb {display:grid;place-items:center;aspect-ratio:1;background:#c8b5a1;height:100%;overflow:hidden;}.thumb img {height:88%;width:auto;transform:rotate(-9deg);transition:transform .3s;}.card:hover .thumb img { transform:rotate(-3deg) scale(1.05); }
+.details {flex:1;display:grid;grid-template-columns:1fr auto;grid-template-rows:1fr auto;column-gap:4px;font-size:clamp(12px,1.02vw,16px);line-height:1.1;}
+.details span:nth-child(2n) {text-align:right;color:#5e5751;}.card:hover .buy {text-decoration:underline;}
+@media(max-width:760px){
+ .hero,.viewport{min-height:470px;}
+ .title{top:9%;transform:none;font-size:18.4vw;line-height:.86;letter-spacing:-.07em;}.title b{display:block;}
+ .drift{width:37vw;}.papers{inset:9% -13% -6%;}
+ .pack{left:50%;top:calc(50% - 4% * var(--travel));height:min(calc(67% - 33% * var(--travel)),115vw);}
+ .card{width:calc(100% - 2 * var(--edge));top:calc(100% - 78px - (76% - 78px) * var(--travel));height:65px;}.details{font-size:13px;}
+}
+@media(max-height:680px) and (min-width:761px){.card{top:calc(82% - 71% * var(--travel));}}
+@media(prefers-reduced-motion:reduce){.drift,.paper{animation:none;}}
+
+
+.title { pointer-events:none; }
+.drift:focus-within,.drift:hover { z-index:2; animation-play-state:paused; }
+.handle {width:100%;height:100%;}
+.paper { display:block;width:100%;border:0;border-radius:1px;text-align:left;pointer-events:auto;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none; }
+.paper:hover,.paper:focus-visible {animation-play-state:paused;filter:none;opacity:1;box-shadow:8px 25px 35px #46362b34;}
+.paper:active {cursor:grabbing;}
+.paper:focus-visible {outline:3px solid #674229;outline-offset:4px;}
+.paper small{text-transform:uppercase;}
+.paperRow {display:flex;justify-content:space-between;border-top:1px solid #a5a19e;font-size:clamp(5px,.6vw,10px);}
+.receiptDialog {padding:0;border:0;background:transparent;max-width:calc(100vw - 32px);color:#2c201a;font-family:Arial,Helvetica,sans-serif;overflow:visible;}
+.receiptDialog::backdrop {background:#2118116b;backdrop-filter:blur(4px);}
+.receipt {width:min(350px,calc(100vw - 32px));padding:25px 25px 34px;background:linear-gradient(115deg,#f2eee6,#fffcf5 48%,#eee7dd);mask:linear-gradient(#000 0 0) top/100% calc(100% - 4px) no-repeat,conic-gradient(from -45deg at 50% 100%,#000 90deg,transparent 0) bottom/8px 5px repeat-x;}
+.receiptDialog[open] .receipt {animation:read-slip .22s ease-out both;}
+@keyframes read-slip {from{opacity:.4;transform:translateY(12px) rotate(-3deg);}to{opacity:1;transform:none;}}
+.receiptTop {display:flex;align-items:center;justify-content:space-between;}.receiptTop b {font:bold 24px var(--font-sans);letter-spacing:-.055em;}
+.receiptTop button {width:38px;height:38px;border:1px solid #a79a8c;border-radius:50%;background:transparent;font-size:22px;line-height:1;}
+.receipt h2 {margin:30px 0 16px;font-size:28px;letter-spacing:-.05em;line-height:1.05;}
+.receipt dl {margin:0;font:14px/1.4 var(--font-mono),monospace;}.receipt dl div {display:flex;justify-content:space-between;gap:18px;padding:10px 0;border-top:1px dashed #a89d8d;}.receipt dd {margin:0;text-align:right;}
+.receipt i {display:block;margin-top:22px;width:44%;height:21px;background:repeating-linear-gradient(90deg,#392c23 0 2px,transparent 2px 5px,#392c23 5px 6px,transparent 6px 9px);}
+.card {transform:perspective(650px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .18s ease-out,box-shadow .2s;}
+.card:hover,.card:focus-visible {box-shadow:0 9px 22px #271b1b27;}
+@media(prefers-reduced-motion:reduce){.receiptDialog[open] .receipt{animation:none;}.card{transform:none;transition:none;}}
