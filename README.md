@@ -2,7 +2,9 @@
 
 A responsive product landing page for a 150 g pouch of chocolate-coated millet bites. Follow a bite from the pack to its toasted-grain centre, explore four everyday snacking moments, and choose a quantity in the shop.
 
-[Watch the captioned interaction walkthrough](docs/walkthrough.mp4)
+## Walkthrough
+
+https://github.com/user-attachments/assets/1de2d7c5-090f-4fdd-9685-14fbfac8089a
 
 ## Run locally
 
